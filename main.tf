@@ -425,9 +425,12 @@ resource "cloudflare_api_token" "r2_backend" {
         }
       ]
 
-      resources = jsonencode({
-        (local.r2_bucket_resource_key) = "*"
-      })
+      resources = jsonencode(merge(
+        {
+          (local.r2_bucket_resource_key) = "*"
+        },
+        var.additional_token_resources
+      ))
     }
   ]
 

@@ -68,6 +68,12 @@ variable "access_key_name" {
   default     = null
 }
 
+variable "additional_token_resources" {
+  description = "Extra Cloudflare resource-key => permission-scope entries merged into the r2_backend token's policy, alongside the primary bucket's own resource key. The caller builds the resource-key string itself, so this isn't limited to R2 buckets - it also covers any other Cloudflare resource type (DNS zones, etc.) the same token should later be scoped to."
+  type        = map(string)
+  default     = {}
+}
+
 variable "random_suffix_length" {
   description = "Length of the random suffix appended to generated bucket names."
   type        = number
