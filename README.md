@@ -28,7 +28,6 @@ See [LICENSE](LICENSE) for full details.
 
 
 <!-- BEGIN_TF_DOCS -->
-## Documentation
 
 
 ### Requirements
@@ -165,10 +164,9 @@ module "backend" {
   enable_backup_dead_letter_queue = true
 }
 ```
-
 <!-- END_TF_DOCS -->
 
 
 <!-- references -->
 
-[repo_link]: https://github.com/Infrastrukturait/terraform-cloudflare-r2-backend-bootstrap
+[repo_link]: https://github.com/rafalmasiarek/terraform-cloudflare-r2-backend-bootstrap

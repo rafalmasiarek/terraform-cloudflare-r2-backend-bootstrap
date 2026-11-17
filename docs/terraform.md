@@ -1,5 +1,4 @@
 <!-- BEGIN_TF_DOCS -->
-## Documentation
 
 
 ### Requirements
@@ -136,5 +135,4 @@ module "backend" {
   enable_backup_dead_letter_queue = true
 }
 ```
-
 <!-- END_TF_DOCS -->
