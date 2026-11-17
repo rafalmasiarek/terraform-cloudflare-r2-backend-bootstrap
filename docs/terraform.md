@@ -1,4 +1,5 @@
-<!-- BEGIN_TF_DOCS -->
+## Terraform Reference
+
 
 
 ### Requirements
@@ -103,36 +104,3 @@
 | <a name="output_bucket_name"></a> [bucket\_name](#output\_bucket\_name) | Name of the created primary R2 backend bucket. |
 | <a name="output_r2_access_key_id"></a> [r2\_access\_key\_id](#output\_r2\_access\_key\_id) | Generated R2 S3 Access Key ID for the primary backend bucket, if enabled. |
 | <a name="output_r2_secret_access_key"></a> [r2\_secret\_access\_key](#output\_r2\_secret\_access\_key) | Generated R2 S3 Secret Access Key for the primary backend bucket, if enabled. |
-
-### Examples
-
-```hcl
-module "backend" {
-  source = "../.."
-
-  account_id    = var.account_id
-  account_alias = var.account_alias
-  environment   = var.environment
-
-  name_prefix    = var.name_prefix
-  bucket_purpose = "tfstate"
-
-  state_key     = var.state_key
-  storage_class = "Standard"
-
-  backup_enabled              = true
-  backup_uses_separate_bucket = true
-  backup_trigger              = "event"
-
-  backup_storage_class = "Standard"
-
-  backup_prefix        = "snapshots"
-  backup_source_suffix = ".tfstate"
-
-  backup_retention_days           = 90
-  enable_backup_lock              = true
-  backup_min_lock_days            = 14
-  enable_backup_dead_letter_queue = true
-}
-```
-<!-- END_TF_DOCS -->

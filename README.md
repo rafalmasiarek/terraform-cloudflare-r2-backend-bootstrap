@@ -4,30 +4,9 @@
 Terraform module to bootstrap a Cloudflare R2 backend for Terraform state, with optional event-driven backup, lifecycle policies, and retention lock.
 
 
-## License
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-```text
-The MIT License (MIT)
+## Terraform Reference
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files, to deal in the Software
-without restriction.
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
-
-Source: https://opensource.org/licenses/MIT
-```
-See [LICENSE](LICENSE) for full details.
-## Authors
-
-- Rafał Masiarek | [website](https://masiarek.pl) | [email](mailto:rafal@masiarek.pl) | [github](https://github.com/rafalmasiarek)
-
-
-<!-- BEGIN_TF_DOCS -->
 
 
 ### Requirements
@@ -133,38 +112,30 @@ See [LICENSE](LICENSE) for full details.
 | <a name="output_r2_access_key_id"></a> [r2\_access\_key\_id](#output\_r2\_access\_key\_id) | Generated R2 S3 Access Key ID for the primary backend bucket, if enabled. |
 | <a name="output_r2_secret_access_key"></a> [r2\_secret\_access\_key](#output\_r2\_secret\_access\_key) | Generated R2 S3 Secret Access Key for the primary backend bucket, if enabled. |
 
-### Examples
+## License
 
-```hcl
-module "backend" {
-  source = "../.."
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-  account_id    = var.account_id
-  account_alias = var.account_alias
-  environment   = var.environment
+```text
+The MIT License (MIT)
 
-  name_prefix    = var.name_prefix
-  bucket_purpose = "tfstate"
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files, to deal in the Software
+without restriction.
 
-  state_key     = var.state_key
-  storage_class = "Standard"
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
 
-  backup_enabled              = true
-  backup_uses_separate_bucket = true
-  backup_trigger              = "event"
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
 
-  backup_storage_class = "Standard"
-
-  backup_prefix        = "snapshots"
-  backup_source_suffix = ".tfstate"
-
-  backup_retention_days           = 90
-  enable_backup_lock              = true
-  backup_min_lock_days            = 14
-  enable_backup_dead_letter_queue = true
-}
+Source: https://opensource.org/licenses/MIT
 ```
-<!-- END_TF_DOCS -->
+
+
+See [LICENSE](LICENSE) for full details.
+## Authors
+
+- Rafał Masiarek | [website](https://masiarek.pl) | [email](mailto:rafal@masiarek.pl) | [github](https://github.com/rafalmasiarek)
 
 
 <!-- references -->
