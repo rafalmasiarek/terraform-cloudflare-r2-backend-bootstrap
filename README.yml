@@ -1,0 +1,16 @@
+name: terraform-cloudflare-r2-backend-bootstrap
+repo_url: https://github.com/rafalmasiarek/terraform-cloudflare-r2-backend-bootstrap
+license: MIT
+
+context:
+  - "## About"
+  - Terraform module to bootstrap a Cloudflare R2 backend for Terraform state, with optional event-driven backup, lifecycle policies, and retention lock.
+
+includes:
+  - docs/terraform.md
+
+authors:
+  - name: Rafał Masiarek
+    email: rafal@masiarek.pl
+    github: rafalmasiarek
+    website: https://masiarek.pl
