@@ -1,0 +1,21 @@
+name: terraform-cloudflare-r2-backend-bootstrap/modules/r2_bucket
+repo_url: https://github.com/rafalmasiarek/terraform-cloudflare-r2-backend-bootstrap
+license: MIT
+
+context:
+  - "## About"
+  - |
+    Thin wrapper around [terraform-cloudflare-r2-bucket](https://github.com/rafalmasiarek/terraform-cloudflare-r2-bucket),
+    used internally by the root [terraform-cloudflare-r2-backend-bootstrap](../../)
+    module for every R2 bucket it needs (primary state bucket, optional
+    separate backup bucket).
+
+includes:
+  - docs/usage.md
+  - docs/terraform.md
+
+authors:
+  - name: Rafał Masiarek
+    email: rafal@masiarek.pl
+    github: rafalmasiarek
+    website: https://masiarek.pl

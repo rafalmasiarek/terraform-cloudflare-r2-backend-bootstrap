@@ -5,7 +5,7 @@
 ### Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
 | <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | >= 5.18.0 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | >= 3.2.1 |
@@ -14,14 +14,14 @@
 ### Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_backup_bucket"></a> [backup\_bucket](#module\_backup\_bucket) | ./modules/r2_bucket | n/a |
 | <a name="module_primary_bucket"></a> [primary\_bucket](#module\_primary\_bucket) | ./modules/r2_bucket | n/a |
 
 ### Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [cloudflare_api_token.r2_backend](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/api_token) | resource |
 | [cloudflare_queue.backup](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/queue) | resource |
 | [cloudflare_queue.backup_dead_letter](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/queue) | resource |
@@ -36,7 +36,7 @@
 ### Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_abort_multipart_after_days"></a> [abort\_multipart\_after\_days](#input\_abort\_multipart\_after\_days) | Number of days after which incomplete multipart uploads are aborted on the primary bucket. | `number` | `7` | no |
 | <a name="input_access_key_name"></a> [access\_key\_name](#input\_access\_key\_name) | Optional explicit name for the generated R2 API token. | `string` | `null` | no |
 | <a name="input_account_alias"></a> [account\_alias](#input\_account\_alias) | Logical account alias used as part of the generated bucket name. | `string` | n/a | yes |
@@ -84,7 +84,7 @@
 ### Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_backend_config"></a> [backend\_config](#output\_backend\_config) | Suggested backend configuration values for Terraform. |
 | <a name="output_backend_config_hcl"></a> [backend\_config\_hcl](#output\_backend\_config\_hcl) | Suggested backend configuration rendered as HCL text. |
 | <a name="output_backend_config_hcl_with_credentials"></a> [backend\_config\_hcl\_with\_credentials](#output\_backend\_config\_hcl\_with\_credentials) | Suggested backend configuration rendered as HCL text including generated R2 credentials, if enabled. |
