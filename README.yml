@@ -4,9 +4,14 @@ license: MIT
 
 context:
   - "## About"
-  - Terraform module to bootstrap a Cloudflare R2 backend for Terraform state, with optional event-driven backup, lifecycle policies, and retention lock.
+  - |
+    Terraform module to bootstrap a Cloudflare R2 backend for Terraform
+    state, with optional event-driven backup, lifecycle policies, and
+    retention lock. Uses [modules/r2_bucket](modules/r2_bucket), which
+    wraps [terraform-cloudflare-r2-bucket](https://github.com/rafalmasiarek/terraform-cloudflare-r2-bucket).
 
 includes:
+  - docs/usage.md
   - docs/terraform.md
 
 authors:

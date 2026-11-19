@@ -1,8 +1,71 @@
 # terraform-cloudflare-r2-backend-bootstrap
+![](https://raw.githubusercontent.com/rafalmasiarek/readme-gen/main/banners/.gitkeep)
+
 ## About
 
-Terraform module to bootstrap a Cloudflare R2 backend for Terraform state, with optional event-driven backup, lifecycle policies, and retention lock.
+Terraform module to bootstrap a Cloudflare R2 backend for Terraform
+state, with optional event-driven backup, lifecycle policies, and
+retention lock. Uses [modules/r2_bucket](modules/r2_bucket), which
+wraps [terraform-cloudflare-r2-bucket](https://github.com/rafalmasiarek/terraform-cloudflare-r2-bucket).
 
+
+
+## License
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+```text
+The MIT License (MIT)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files, to deal in the Software
+without restriction.
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
+
+Source: https://opensource.org/licenses/MIT
+```
+See [LICENSE](LICENSE) for full details.
+## Authors
+
+- Rafał Masiarek | [website](https://masiarek.pl) | [email](mailto:rafal@masiarek.pl) | [github](https://github.com/rafalmasiarek)
+
+
+## Usage
+
+```hcl
+module "backend" {
+  source = "git::https://github.com/rafalmasiarek/terraform-cloudflare-r2-backend-bootstrap.git?ref=v0.1.0"
+
+  account_id    = var.account_id
+  account_alias = var.account_alias
+  environment   = var.environment
+
+  name_prefix    = var.name_prefix
+  bucket_purpose = "tfstate"
+
+  state_key     = var.state_key
+  storage_class = "Standard"
+
+  backup_enabled              = true
+  backup_uses_separate_bucket = true
+  backup_trigger              = "event"
+
+  backup_storage_class = "Standard"
+  backup_prefix        = "snapshots"
+  backup_source_suffix = ".tfstate"
+
+  backup_retention_days           = 90
+  enable_backup_lock              = true
+  backup_min_lock_days             = 14
+  enable_backup_dead_letter_queue = true
+}
+```
+
+See `examples/complete`, `examples/event-internal-bucket`, and
+`examples/scheduled-internal-bucket` for full, runnable variants.
 
 
 ## Terraform Reference
@@ -12,7 +75,7 @@ Terraform module to bootstrap a Cloudflare R2 backend for Terraform state, with 
 ### Requirements
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
 | <a name="requirement_cloudflare"></a> [cloudflare](#requirement\_cloudflare) | >= 5.18.0 |
 | <a name="requirement_null"></a> [null](#requirement\_null) | >= 3.2.1 |
@@ -21,14 +84,14 @@ Terraform module to bootstrap a Cloudflare R2 backend for Terraform state, with 
 ### Modules
 
 | Name | Source | Version |
-|------|--------|---------|
+| ---- | ------ | ------- |
 | <a name="module_backup_bucket"></a> [backup\_bucket](#module\_backup\_bucket) | ./modules/r2_bucket | n/a |
 | <a name="module_primary_bucket"></a> [primary\_bucket](#module\_primary\_bucket) | ./modules/r2_bucket | n/a |
 
 ### Resources
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [cloudflare_api_token.r2_backend](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/api_token) | resource |
 | [cloudflare_queue.backup](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/queue) | resource |
 | [cloudflare_queue.backup_dead_letter](https://registry.terraform.io/providers/cloudflare/cloudflare/latest/docs/resources/queue) | resource |
@@ -43,7 +106,7 @@ Terraform module to bootstrap a Cloudflare R2 backend for Terraform state, with 
 ### Inputs
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | <a name="input_abort_multipart_after_days"></a> [abort\_multipart\_after\_days](#input\_abort\_multipart\_after\_days) | Number of days after which incomplete multipart uploads are aborted on the primary bucket. | `number` | `7` | no |
 | <a name="input_access_key_name"></a> [access\_key\_name](#input\_access\_key\_name) | Optional explicit name for the generated R2 API token. | `string` | `null` | no |
 | <a name="input_account_alias"></a> [account\_alias](#input\_account\_alias) | Logical account alias used as part of the generated bucket name. | `string` | n/a | yes |
@@ -91,7 +154,7 @@ Terraform module to bootstrap a Cloudflare R2 backend for Terraform state, with 
 ### Outputs
 
 | Name | Description |
-|------|-------------|
+| ---- | ----------- |
 | <a name="output_backend_config"></a> [backend\_config](#output\_backend\_config) | Suggested backend configuration values for Terraform. |
 | <a name="output_backend_config_hcl"></a> [backend\_config\_hcl](#output\_backend\_config\_hcl) | Suggested backend configuration rendered as HCL text. |
 | <a name="output_backend_config_hcl_with_credentials"></a> [backend\_config\_hcl\_with\_credentials](#output\_backend\_config\_hcl\_with\_credentials) | Suggested backend configuration rendered as HCL text including generated R2 credentials, if enabled. |
@@ -111,31 +174,6 @@ Terraform module to bootstrap a Cloudflare R2 backend for Terraform state, with 
 | <a name="output_bucket_name"></a> [bucket\_name](#output\_bucket\_name) | Name of the created primary R2 backend bucket. |
 | <a name="output_r2_access_key_id"></a> [r2\_access\_key\_id](#output\_r2\_access\_key\_id) | Generated R2 S3 Access Key ID for the primary backend bucket, if enabled. |
 | <a name="output_r2_secret_access_key"></a> [r2\_secret\_access\_key](#output\_r2\_secret\_access\_key) | Generated R2 S3 Secret Access Key for the primary backend bucket, if enabled. |
-
-## License
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-
-```text
-The MIT License (MIT)
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files, to deal in the Software
-without restriction.
-
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.
-
-Source: https://opensource.org/licenses/MIT
-```
-
-
-See [LICENSE](LICENSE) for full details.
-## Authors
-
-- Rafał Masiarek | [website](https://masiarek.pl) | [email](mailto:rafal@masiarek.pl) | [github](https://github.com/rafalmasiarek)
 
 
 <!-- references -->
